@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -42,6 +43,8 @@ Route::get('/user/profile', function () {
     return 'Ini adalah halaman profil pengguna';
 })->name('profile');
 
+
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return 'Ini adalah halaman dashboard yang membutuhkan autentikasi';
@@ -65,3 +68,12 @@ Route::prefix('admin')->group(function () {
 Route::redirect('/here', '/there');
 
 Route::view('/welcome', 'welcome');
+use App\Http\Controllers\WelcomeController;
+
+Route::get('/hello', [WelcomeController::class, 'hello']);
+Route::get('/greeting', [WelcomeController::class, 'greeting']);
+
+
+Route::get('/hello', [PageController::class, 'hello']);
+Route::get('/about', [PageController::class, 'about']);
+Route::get('/articles/{id}', [PageController::class,'articles']);
